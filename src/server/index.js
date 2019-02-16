@@ -322,7 +322,7 @@ app.post('/api/new_audio', async (req, res) => {
     return res.status(403)
       .send({
         success: 'false',
-        message: 'email already exists'
+        message: e
       });
   }
 
