@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Form from './form/form';
-import '../app.css';
 import Results from './result/results';
 
 export default class Users extends Component {
@@ -33,7 +32,24 @@ export default class Users extends Component {
     console.log(userId);
     this.setState({ results: null });
     console.log('ran');
-    fetch(`/demo/api/users/${userId}`, {
+
+    // fetch('/admin/dashboard/api/get_table', {
+    //   mode: 'cors',
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({
+    //     'customSql': sql,
+    //     'columns': columns
+    //   })
+    // })
+    //   .then(response => response.json())
+    //   .then((data) => {
+    //        consople.log(data)
+    //     });
+    //   });
+
+    //SAMPLE REQUEST
+    fetch(`/api/users/${userId}`, {
       mode: 'cors',
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
@@ -56,7 +72,7 @@ export default class Users extends Component {
   render() {
     return (
       <body>
-        <h1><a href="/demo/users/">Users</a></h1>
+        <h1><a href="/users/">Users</a></h1>
         {this.state.form}
         {this.state.results}
       </body>

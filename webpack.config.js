@@ -7,9 +7,12 @@ const outputDirectory = 'dist';
 module.exports = {
   entry: ['babel-polyfill', './src/client/index.js'],
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.join(__dirname, outputDirectory),
     filename: 'bundle.js',
-    publicPath: '/demo/'
+    publicPath: '/'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
   module: {
     rules: [
@@ -30,23 +33,20 @@ module.exports = {
       }
     ]
   },
-  devtool: 'source-map',
   devServer: {
     port: 3000,
     open: true,
+    historyApiFallback: { index: '/' },
     disableHostCheck: true,
-    historyApiFallback: {index: '/demo/'},
-    publicPath: '/demo/',
     proxy: {
-      '/demo/api': 'http://localhost:8080'
+      '/api': 'http://localhost:8080'
     }
   },
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),
     new HtmlWebpackPlugin({
       template: './public/index.html',
-      favicon: './public/favicon.ico',
-      baseHref: '/demo/'
+      favicon: './public/favicon.ico'
     })
   ]
 };
