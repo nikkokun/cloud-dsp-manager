@@ -125,7 +125,7 @@ app.get('/api/users/:id', async (req, res) => {
     });
 });
 
-app.post('/api/register/', async (req, res) => {
+app.post('/api/register', async (req, res) => {
   if (
     !req.body.hasOwnProperty('email')
     || !req.body.hasOwnProperty('password')
@@ -191,7 +191,7 @@ app.post('/api/register/', async (req, res) => {
     });
 });
 
-app.post('/api/login/', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   if (!req.body.hasOwnProperty('email')) {
     return res.status(400)
       .send({
@@ -238,7 +238,7 @@ app.post('/api/login/', async (req, res) => {
     });
 });
 
-app.post('/api/deactivate/', async (req, res) => {
+app.post('/api/deactivate', async (req, res) => {
   if (
     !req.body.hasOwnProperty('email')
     || !req.body.hasOwnProperty('id')
@@ -294,6 +294,52 @@ app.post('/api/deactivate/', async (req, res) => {
       results
     });
 });
+
+app.post('/api/new_audio', async (req, res) => {
+  if (
+    !req.body.hasOwnProperty('filename')
+    || !req.body.hasOwnProperty('url')
+    || !req.body.hasOwnProperty('user_id')
+  ) {
+    return res.status(400)
+      .send({
+        success: 'false',
+        message: 'missing parameter'
+      });
+  }
+
+  const filename = req.body.filename;
+  const url = req.body.url;
+  const userId = req.body.user_id;
+
+  let results = {};
+
+  try {
+    const getUserInfoResults = audios.newAudio(filename, url, userId);
+    results = await getUserInfoResults;
+  } catch (e) {
+    console.log(e);
+    return res.status(403)
+      .send({
+        success: 'false',
+        message: 'email already exists'
+      });
+  }
+
+  if (results['rowCount'] === 0) {
+    return res.status(400)
+      .send({
+        success: 'false',
+        message: 'error'
+      });
+  }
+
+  return res.status(200)
+    .send({
+      results
+    });
+});
+
 
 app.get('/api/asyncdemo', async (req, res) => {
 
