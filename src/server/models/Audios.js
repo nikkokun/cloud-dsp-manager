@@ -37,6 +37,15 @@ module.exports = class Audios {
     return results;
   }
 
+  async getAudios(inputUserId) {
+    const sql = `
+          SELECT * FROM audios WHERE user_id = ${inputUserId}; 
+          `;
+
+    const results = await this.pool.query(sql);
+    return results;
+  }
+
   async deleteAudio(inputFilename, inputUserId) {
     const sql = `
           DELETE FROM audios WHERE filename = '${inputFilename}' AND user_id = ${inputUserId}; 

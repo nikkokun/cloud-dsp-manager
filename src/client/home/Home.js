@@ -1,45 +1,34 @@
 import React, { Component } from 'react';
-import { CloudinaryContext, Image, Transformation } from 'cloudinary-react';
+import { CloudinaryContext } from 'cloudinary-react';
 import cloudinary from 'cloudinary-core';
 import cloudinaryConfig from './cloudinary-config.js';
 const cloudinaryCore = new cloudinary.Cloudinary(cloudinaryConfig);
 import Uploader from './uploader/Uploader';
-import Header from '../common/Header';
-import {
-  Typography,
-} from '@material-ui/core';
+import FileViewer from './fileviewer/FileViewer'
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
+    this.userId = 1;
+
+    this.uploaderReference = React.createRef();
+    this.fileviewerReference = React.createRef();
   }
 
-  // componentDidMount() {
-  //   let formReference = React.createRef();
-  //   const userId = parseInt(this.props.match.params.id);
-  //
-  //   this.setState({
-  //     form: <Form
-  //       parent={this}
-  //       ref={formReference}
-  //     />,
-  //     formRef: formReference,
-  //     userId: userId
-  //   });
-  //
-  //   if (userId > -1) {
-  //     this.executeQuery(userId);
-  //   }
-  // }
+  updateFileViewer() {
+    this.fileviewerReference.current.getAudios();
+    console.log('ran');
+  }
+
 
   render() {
+
     return (
       <body>
-        <Header/>
-        <Typography variant="display1">Welcome Home!</Typography>
         <CloudinaryContext cloudName={cloudinaryConfig.cloud_name}>
-          <Uploader />
+          <Uploader userId={this.userId} ref={this.uploaderReference} parent={this}/>
         </CloudinaryContext>
+        <FileViewer ref={this.fileviewerReference} parent={this}/>
       </body>
     );
   }
