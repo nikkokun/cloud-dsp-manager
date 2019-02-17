@@ -18,7 +18,7 @@ export default class File extends Component {
     this.state = {
       isLoading: false,
       modalIsOpen: false,
-      transformFileName: '',
+      transformFileName: 'transformed' + this.props.filename,
       transformType: 'stretch',
       isTransforming: false
     };
