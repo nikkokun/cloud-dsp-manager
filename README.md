@@ -2,6 +2,9 @@
 
 This project uses the [Cloudinary API](https://cloudinary.com/documentation) to provide audio editing capabilities for users on the cloud. 
 
+## Run 
+[https://41e119b1.ngrock.io](https://41e119b1.ngrock.io)
+
 ## Installation Overview
 
 `npm run dev`
