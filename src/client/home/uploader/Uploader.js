@@ -66,14 +66,13 @@ export default class Uploader extends Component {
           })
             .then(response => response.json())
             .then((data) => {
-              console.log(data);
+              this.parent.updateFileViewer();
             })
             .catch((err) => {
               console.error('err', err);
               me.setState({modalIsOpen: false, progress:0});
             });
           me.setState({progress: 0, modalIsOpen: false});
-          this.parent.updateFileViewer();
         })
         .catch((err) => {
           console.error('err', err);
